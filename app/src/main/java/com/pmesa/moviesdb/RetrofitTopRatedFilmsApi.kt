@@ -10,7 +10,7 @@ class RetrofitTopRatedFilmsApi(retrofit: Retrofit) : TopRatedMoviesApi{
     private val mApi = retrofit.create(RetrofitTopRatedFilmsService::class.java)
 
     override suspend fun getTopRatedList() =
-        mApi.getTopRatedFilms("ac9fd208182cbbc4f327f27f7318183f")
+        mApi.getTopRatedFilms("ac9fd208182cbbc4f327f27f7318183f").mTopRatedFilms
 
     companion object{
 
