@@ -1,4 +1,4 @@
-package com.pmesa.moviesdb
+package com.pmesa.moviesdb.view.fragments
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -9,18 +9,24 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.pmesa.moviesdb.R
+import com.pmesa.moviesdb.model.model.Film
+import com.pmesa.moviesdb.view.adapters.FilmAdapter
+import com.pmesa.moviesdb.viewmodel.ViewModelFactory
+import com.pmesa.moviesdb.viewmodel.TopRatedMoviesViewModel
 import kotlinx.android.synthetic.main.top_rated_movies_fragment.*
 
 
 class TopRatedMoviesFragment : Fragment() {
 
     companion object {
-        fun newInstance() = TopRatedMoviesFragment()
+        fun newInstance() =
+            TopRatedMoviesFragment()
     }
 
     private lateinit var layoutManager: RecyclerView.LayoutManager
 
-    private lateinit var dataAdapter: FilmAdapter
+    private lateinit var adapter: FilmAdapter
 
     private lateinit var viewModel: TopRatedMoviesViewModel
 
@@ -32,21 +38,23 @@ class TopRatedMoviesFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this, ViewModelFactory.getInstance(activity!!.application))
+        viewModel = ViewModelProviders.of(this,
+                ViewModelFactory.getInstance(activity!!.application))
             .get(TopRatedMoviesViewModel::class.java)
-        dataAdapter = FilmAdapter()
-        layoutManager = LinearLayoutManager(context)
+        adapter = FilmAdapter { startFilmDetailActivity(it) }
+        layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         top_rated_films_recycler_view.layoutManager = layoutManager
-        top_rated_films_recycler_view.adapter = dataAdapter
-        viewModel.mTopRatedMoviesList.observe(viewLifecycleOwner, Observer {
-            refreshUiData(it)
-        })
+        top_rated_films_recycler_view.adapter = adapter
+        viewModel.mTopRatedMoviesList.observe(viewLifecycleOwner, Observer { refresh(it) })
 
     }
 
+    private fun startFilmDetailActivity(film: Film) {
+    }
 
-    private fun refreshUiData(it: List<Film>?) {
-        dataAdapter.refreshData(it)
+
+    private fun refresh(it: List<Film>?) {
+        adapter.update(it)
     }
 
 }

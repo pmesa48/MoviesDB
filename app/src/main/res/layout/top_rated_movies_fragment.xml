@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".TopRatedMoviesFragment">
+    tools:context=".view.fragments.TopRatedMoviesFragment">
 
+    <TextView
+        android:id="@+id/top_rated_film_fragment_title"
+        android:layout_width="wrap_content"
+        android:text="Top Rated"
+        android:textColor="@color/white_text_color"
+        android:textStyle="bold"
+        android:layout_margin="8dp"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp"
+        android:layout_height="wrap_content"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:orientation="horizontal"
+        tools:listitem="@layout/top_rated_movie_row"
+        android:scrollbarStyle="outsideOverlay"
         android:id="@+id/top_rated_films_recycler_view" />
 
-</FrameLayout>
+</LinearLayout>

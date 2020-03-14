@@ -1,16 +1,20 @@
-package com.pmesa.moviesdb
+package com.pmesa.moviesdb.model.api
 
+import com.pmesa.moviesdb.model.model.Film
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitTopRatedFilmsApi(retrofit: Retrofit) : TopRatedMoviesApi{
+class RetrofitTopRatedFilmsApi(retrofit: Retrofit) :
+    TopRatedMoviesApi {
 
     private val mApi = retrofit.create(RetrofitTopRatedFilmsService::class.java)
 
     override suspend fun getTopRatedList() =
-        mApi.getTopRatedFilms("ac9fd208182cbbc4f327f27f7318183f").mTopRatedFilms
+        mApi.getTopRatedFilms("ac9fd208182cbbc4f327f27f7318183f")
+            .topRatedFilms
+            .map { Film(it) }
 
     companion object{
 
@@ -26,11 +30,13 @@ class RetrofitTopRatedFilmsApi(retrofit: Retrofit) : TopRatedMoviesApi{
 
         fun getInstance(): RetrofitTopRatedFilmsApi {
             if(singleton == null){
-                singleton = RetrofitTopRatedFilmsApi(
-                    Retrofit.Builder().baseUrl("https://api.themoviedb.org/3/")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .client(getHttpClient())
-                    .build())
+                singleton =
+                    RetrofitTopRatedFilmsApi(
+                        Retrofit.Builder().baseUrl("https://api.themoviedb.org/3/")
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .client(getHttpClient())
+                            .build()
+                    )
             }
             return singleton as RetrofitTopRatedFilmsApi
         }

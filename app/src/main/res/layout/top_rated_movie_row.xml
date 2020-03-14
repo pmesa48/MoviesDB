@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="180dp"
+    android:layout_height="230dp"
+    android:padding="4dp"
+    android:background="?attr/selectableItemBackground"
+    android:id="@+id/top_rated_movie_row_container">
 
-    <TextView
-        android:id="@+id/top_rated_film_title_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+    <ImageView
+        android:id="@+id/top_rated_movie_image_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-    <TextView
-        android:id="@+id/top_rated_film_year_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
