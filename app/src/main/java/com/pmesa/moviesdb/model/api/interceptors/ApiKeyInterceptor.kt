@@ -1,5 +1,6 @@
 package com.pmesa.moviesdb.model.api.interceptors
 
+import com.pmesa.moviesdb.BuildConfig
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.Request
@@ -15,7 +16,7 @@ class ApiKeyInterceptor : Interceptor {
         val original: Request = chain.request()
         val originalHttpUrl: HttpUrl = original.url
         val url = originalHttpUrl.newBuilder()
-            .addQueryParameter(API_KEY, "ac9fd208182cbbc4f327f27f7318183f")
+            .addQueryParameter(API_KEY, BuildConfig.THE_MOVIE_DB_API_KEY)
             .build()
         val requestBuilder: Request.Builder = original.newBuilder()
             .url(url)
