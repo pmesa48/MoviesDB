@@ -2,13 +2,13 @@ package com.pmesa.moviesdb.model.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class TopRatedFilmsResponseDto(
+data class FilmsListResponseDto(
     @SerializedName("page")
-    val page : Int = 0,
+    val page : Int? = 0,
     @SerializedName("results")
-    val topRatedFilms : List<FilmDto>,
+    val results : List<FilmDto>? = null,
     @SerializedName("total_results")
-    val totalResults : Int,
+    val totalResults : Int = 0,
     @SerializedName("total_pages")
-    val totalPages : Int
+    val totalPages : Int = 0
 )

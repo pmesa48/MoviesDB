@@ -3,7 +3,7 @@ package com.pmesa.moviesdb.view.adapters
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.pmesa.moviesdb.R
-import com.pmesa.moviesdb.view.common.inflateForViewHolder
+import com.pmesa.moviesdb.view.common.inflate
 import com.pmesa.moviesdb.model.model.Film
 import com.pmesa.moviesdb.view.common.listen
 import com.pmesa.moviesdb.view.viewholders.FilmViewHolder
@@ -20,7 +20,7 @@ class FilmAdapter(val onItemClick: (Film) -> Unit ): RecyclerView.Adapter<FilmVi
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
-    = FilmViewHolder(parent.inflateForViewHolder(R.layout.top_rated_movie_row))
+    = FilmViewHolder(parent.inflate(R.layout.top_rated_movie_row))
         .listen { position, _ -> onItemClick(mData[position]) }
 
     override fun getItemCount(): Int = mData.size

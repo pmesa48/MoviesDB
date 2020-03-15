@@ -10,18 +10,13 @@ import com.squareup.picasso.Picasso
 
 
 class FilmViewHolder(view: View): RecyclerView.ViewHolder(view)  {
-    private val mBackgroundImage: ImageView by lazy { itemView.findViewById<ImageView>(R.id.top_rated_movie_image_background) }
+    private val mBackgroundImage
+            by lazy { itemView.findViewById<ImageView>(R.id.top_rated_movie_image_background) }
 
     fun bind(film: Film) {
-        Picasso.get().isLoggingEnabled = true
         Picasso.get()
             .load("https://image.tmdb.org/t/p/w200${film.posterPath}")
-            .transform(
-                RoundedTransformation(
-                    16,
-                    0
-                )
-            )
+            .transform(RoundedTransformation(8, 0))
             .into(mBackgroundImage)
     }
 

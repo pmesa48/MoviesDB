@@ -1,11 +1,17 @@
 package com.pmesa.moviesdb.model.api
 
-import com.pmesa.moviesdb.model.dto.TopRatedFilmsResponseDto
+import com.pmesa.moviesdb.model.dto.FilmsListResponseDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface RetrofitTopRatedFilmsService {
 
     @GET("movie/top_rated")
-    suspend fun getTopRatedFilms(@Query("api_key") token : String) : TopRatedFilmsResponseDto
+    suspend fun getTopRatedFilms() : FilmsListResponseDto
+
+    @GET("movie/upcoming")
+    suspend fun getUpcomingFilms(): FilmsListResponseDto
+
+    @GET("movie/popular")
+    suspend fun getPopularFilms(): FilmsListResponseDto
 }
