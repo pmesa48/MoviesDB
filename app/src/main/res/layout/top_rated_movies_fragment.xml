@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".view.fragments.TopRatedMoviesFragment">
+    tools:context=".view.fragments.MoviesListFragment">
 
     <TextView
         android:id="@+id/top_rated_film_fragment_title"

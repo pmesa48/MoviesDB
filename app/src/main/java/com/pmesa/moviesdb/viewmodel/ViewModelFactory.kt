@@ -3,16 +3,16 @@ package com.pmesa.moviesdb.viewmodel
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.pmesa.moviesdb.model.api.RetrofitTopRatedFilmsApi
+import com.pmesa.moviesdb.model.api.films.RetrofitMoviesListsApi
 
 class ViewModelFactory(private val app: Application)
     : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return if (modelClass.isAssignableFrom(TopRatedMoviesViewModel::class.java)) {
-            TopRatedMoviesViewModel(
+        return if (modelClass.isAssignableFrom(MoviesListsViewModel::class.java)) {
+            MoviesListsViewModel(
                 app,
-                RetrofitTopRatedFilmsApi.getInstance()
+                RetrofitMoviesListsApi.getInstance()
             ) as T
         } else {
             throw IllegalArgumentException("ViewModel Not Found")

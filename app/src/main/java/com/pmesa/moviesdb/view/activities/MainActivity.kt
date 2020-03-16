@@ -4,8 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.pmesa.moviesdb.R
-import com.pmesa.moviesdb.view.fragments.TopRatedMoviesFragment
-import com.pmesa.moviesdb.viewmodel.TopRatedMoviesViewModel
+import com.pmesa.moviesdb.view.fragments.MoviesListFragment
+import com.pmesa.moviesdb.viewmodel.MoviesListsViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,15 +13,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         renderFragment(
-            TopRatedMoviesFragment.newInstance("Upcoming", TopRatedMoviesViewModel.UPCOMING),
+            MoviesListFragment.newInstance("Upcoming", MoviesListsViewModel.UPCOMING),
             R.id.main_activity_fragment_container
         )
         renderFragment(
-            TopRatedMoviesFragment.newInstance("Popular", TopRatedMoviesViewModel.POPULAR),
+            MoviesListFragment.newInstance("Popular", MoviesListsViewModel.POPULAR),
             R.id.main_activity_fragment_container_second
         )
         renderFragment(
-            TopRatedMoviesFragment.newInstance("Top Rated", TopRatedMoviesViewModel.TOP_RATED),
+            MoviesListFragment.newInstance("Top Rated", MoviesListsViewModel.TOP_RATED),
             R.id.main_activity_fragment_container_third
         )
     }

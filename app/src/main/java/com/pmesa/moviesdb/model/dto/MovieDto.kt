@@ -1,9 +1,8 @@
 package com.pmesa.moviesdb.model.dto
 
 import com.google.gson.annotations.SerializedName
-import com.pmesa.moviesdb.model.model.Film
 
-data class FilmDto(
+data class MovieDto(
     @SerializedName("id")
     val id: Long,
     @SerializedName("release_date")

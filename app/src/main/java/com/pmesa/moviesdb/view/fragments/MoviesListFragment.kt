@@ -9,22 +9,22 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.pmesa.moviesdb.R
-import com.pmesa.moviesdb.model.model.Film
-import com.pmesa.moviesdb.view.adapters.FilmAdapter
+import com.pmesa.moviesdb.model.model.Movie
+import com.pmesa.moviesdb.view.adapters.MovieAdapter
 import com.pmesa.moviesdb.view.common.inflate
 import com.pmesa.moviesdb.viewmodel.ViewModelFactory
-import com.pmesa.moviesdb.viewmodel.TopRatedMoviesViewModel
+import com.pmesa.moviesdb.viewmodel.MoviesListsViewModel
 import kotlinx.android.synthetic.main.top_rated_movies_fragment.*
 
 
-class TopRatedMoviesFragment : Fragment() {
+class MoviesListFragment : Fragment() {
 
     companion object {
-        fun newInstance(title: String, type: Int): TopRatedMoviesFragment {
+        fun newInstance(title: String, type: Int): MoviesListFragment {
             val args = Bundle()
             args.putString(TITLE, title)
             args.putInt(TYPE, type)
-            val topRatedMoviesFragment = TopRatedMoviesFragment()
+            val topRatedMoviesFragment = MoviesListFragment()
             topRatedMoviesFragment.arguments = args
             return topRatedMoviesFragment
         }
@@ -36,9 +36,9 @@ class TopRatedMoviesFragment : Fragment() {
 
     private lateinit var layoutManager: RecyclerView.LayoutManager
 
-    private lateinit var adapter: FilmAdapter
+    private lateinit var adapter: MovieAdapter
 
-    private lateinit var viewModel: TopRatedMoviesViewModel
+    private lateinit var viewModel: MoviesListsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,8 +50,8 @@ class TopRatedMoviesFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this,
                 ViewModelFactory.getInstance(activity!!.application))
-            .get(TopRatedMoviesViewModel::class.java)
-        adapter = FilmAdapter { startFilmDetailActivity(it) }
+            .get(MoviesListsViewModel::class.java)
+        adapter = MovieAdapter { startFilmDetailActivity(it) }
         layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         top_rated_films_recycler_view.layoutManager = layoutManager
         top_rated_films_recycler_view.adapter = adapter
@@ -62,10 +62,10 @@ class TopRatedMoviesFragment : Fragment() {
 
     private fun type(arguments: Bundle?) = arguments?.let { arguments.getInt(TYPE) } ?: -1
 
-    private fun startFilmDetailActivity(film: Film) {
+    private fun startFilmDetailActivity(movie: Movie) {
     }
 
 
-    private fun refresh(it: List<Film>?) { adapter.update(it) }
+    private fun refresh(it: List<Movie>?) { adapter.update(it) }
 
 }

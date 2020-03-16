@@ -3,16 +3,14 @@ package com.pmesa.moviesdb.viewmodel
 import android.app.Application
 import androidx.annotation.IntDef
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import com.pmesa.moviesdb.model.api.TopRatedMoviesApi
-import com.pmesa.moviesdb.model.model.Film
+import com.pmesa.moviesdb.model.api.films.MoviesListsApi
 import kotlinx.coroutines.Dispatchers
 
 
-class TopRatedMoviesViewModel(app: Application, private val api: TopRatedMoviesApi) : AndroidViewModel(app) {
+class MoviesListsViewModel(app: Application, private val api: MoviesListsApi) : AndroidViewModel(app) {
 
-    fun getListContent(type: Int) : LiveData<List<Film>>  =
+    fun getListContent(type: Int) =
         liveData(Dispatchers.IO) {
             emit(
                 when(type) {
