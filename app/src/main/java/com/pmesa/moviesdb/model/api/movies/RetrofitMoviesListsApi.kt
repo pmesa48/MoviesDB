@@ -1,8 +1,10 @@
-package com.pmesa.moviesdb.model.api.films
+package com.pmesa.moviesdb.model.api.movies
 
+import com.pmesa.moviesdb.BuildConfig
 import com.pmesa.moviesdb.model.api.interceptors.ApiKeyInterceptor
 import com.pmesa.moviesdb.model.api.interceptors.LanguageInterceptor
 import com.pmesa.moviesdb.model.model.Movie
+import kotlinx.coroutines.delay
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -12,22 +14,26 @@ import retrofit2.converter.gson.GsonConverterFactory
 class RetrofitMoviesListsApi : MoviesListsApi {
 
     private val mApi by lazy {
-        val retrofit = Retrofit.Builder().baseUrl("https://api.themoviedb.org/3/")
+        val retrofit = Retrofit.Builder().baseUrl(BuildConfig.THE_MOVIE_DB_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(getHttpClient())
             .build()
         retrofit.create(MoviesListsApiServices::class.java)
     }
 
-    override suspend fun getTopRatedList() =
-        mApi.getTopRatedFilms()
-            .results
-            ?.map { Movie(it) } ?: emptyList()
+    override suspend fun getTopRatedList() : List<Movie> {
+        delay(5000)
+        return mApi.getTopRatedFilms()
+                .results
+                ?.map { Movie(it) } ?: emptyList()
+    }
 
-    override suspend fun getUpcomingList() =
-        mApi.getUpcomingFilms()
-            .results
-            ?.map { Movie(it) } ?: emptyList()
+    override suspend fun getUpcomingList() : List<Movie> {
+        delay(2000)
+        return mApi.getUpcomingFilms()
+                .results
+                ?.map { Movie(it) } ?: emptyList()
+    }
 
 
     override suspend fun getPopularList() =

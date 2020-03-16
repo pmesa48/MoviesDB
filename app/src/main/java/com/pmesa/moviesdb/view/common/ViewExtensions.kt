@@ -15,3 +15,15 @@ fun <T : RecyclerView.ViewHolder> T.listen(event: (position: Int, type: Int) -> 
     }
     return this
 }
+
+fun View.makeVisible() {
+    visibility = View.VISIBLE
+}
+
+fun View.makeGone() {
+    visibility = View.GONE
+}
+
+fun View.makeInvisible() {
+    visibility = View.INVISIBLE
+}

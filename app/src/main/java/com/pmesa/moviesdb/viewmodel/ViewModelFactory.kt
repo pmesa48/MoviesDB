@@ -3,7 +3,7 @@ package com.pmesa.moviesdb.viewmodel
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.pmesa.moviesdb.model.api.films.RetrofitMoviesListsApi
+import com.pmesa.moviesdb.model.api.movies.RetrofitMoviesListsApi
 
 class ViewModelFactory(private val app: Application)
     : ViewModelProvider.Factory {

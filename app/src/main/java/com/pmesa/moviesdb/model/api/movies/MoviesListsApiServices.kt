@@ -1,4 +1,4 @@
-package com.pmesa.moviesdb.model.api.films
+package com.pmesa.moviesdb.model.api.movies
 
 import com.pmesa.moviesdb.model.dto.MoviesListsResponseDto
 import retrofit2.http.GET
