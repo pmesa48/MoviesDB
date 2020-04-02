@@ -1,5 +1,6 @@
 package com.pmesa.moviesdb.model.api.movies
 
+import android.util.Log
 import com.pmesa.moviesdb.BuildConfig
 import com.pmesa.moviesdb.model.api.interceptors.ApiKeyInterceptor
 import com.pmesa.moviesdb.model.api.interceptors.LanguageInterceptor
@@ -18,6 +19,7 @@ class RetrofitMoviesListsApi : MoviesListsApi {
             .addConverterFactory(GsonConverterFactory.create())
             .client(getHttpClient())
             .build()
+        Log.d("Lag", "Retrofit init skipped")
         retrofit.create(MoviesListsApiServices::class.java)
     }
 
@@ -42,7 +44,7 @@ class RetrofitMoviesListsApi : MoviesListsApi {
             ?.map{ Movie(it) } ?: emptyList()
 
 
-    companion object{
+    companion object {
 
         var singleton: RetrofitMoviesListsApi? = null
 

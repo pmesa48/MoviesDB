@@ -42,6 +42,7 @@ class MoviesListFragment : Fragment() {
         top_rated_films_recycler_view.layoutManager = layoutManager
         top_rated_films_recycler_view.adapter = adapter
         top_rated_film_fragment_title.text = arguments?.getString(TITLE)
+        movies_list_shimmer_layout.startShimmer()
         viewModel.getListContent(type(arguments))
             .observe(viewLifecycleOwner, Observer { refresh(it) })
 
@@ -62,11 +63,13 @@ class MoviesListFragment : Fragment() {
     }
 
     private fun updateContent(it: MoviesListsViewModel.ViewModelResponse.Success) {
+        movies_list_shimmer_layout.hideShimmer()
         top_rated_films_recycler_view.makeVisible()
         adapter.update(it.results)
     }
 
     private fun hideContent() {
+        movies_list_shimmer_layout.hideShimmer()
         top_rated_films_recycler_view.makeGone()
     }
 

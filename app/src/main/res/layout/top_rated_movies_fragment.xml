@@ -17,6 +17,11 @@
         android:layout_height="wrap_content"
         />
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/movies_list_shimmer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -27,5 +32,7 @@
         tools:listitem="@layout/top_rated_movie_row"
         android:scrollbarStyle="outsideOverlay"
         android:id="@+id/top_rated_films_recycler_view" />
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
 </LinearLayout>
