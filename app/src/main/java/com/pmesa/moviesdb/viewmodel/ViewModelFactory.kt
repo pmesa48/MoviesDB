@@ -4,18 +4,36 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.pmesa.moviesdb.model.api.movies.RetrofitMoviesListsApi
+import com.pmesa.moviesdb.model.usecases.GetPopularMovies
+import com.pmesa.moviesdb.model.usecases.GetTopRatedMovies
+import com.pmesa.moviesdb.model.usecases.GetUpcomingMovies
 
+@Suppress("UNCHECKED_CAST")
 class ViewModelFactory(private val app: Application)
     : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return if (modelClass.isAssignableFrom(MoviesListsViewModel::class.java)) {
-            MoviesListsViewModel(
-                app,
-                RetrofitMoviesListsApi.getInstance()
-            ) as T
-        } else {
-            throw IllegalArgumentException("ViewModel Not Found")
+        return when {
+            modelClass.isAssignableFrom(PopularMoviesViewModel::class.java) -> {
+                PopularMoviesViewModel(
+                    app,
+                    GetPopularMovies(RetrofitMoviesListsApi())
+                ) as T
+            }
+            modelClass.isAssignableFrom(TopRatedMoviesViewModel::class.java) -> {
+                TopRatedMoviesViewModel(
+                    app,
+                    GetTopRatedMovies(RetrofitMoviesListsApi())
+                ) as T
+            }
+            modelClass.isAssignableFrom(UpcomingMoviesListViewModel::class.java) -> {
+                UpcomingMoviesListViewModel(
+                    app, GetUpcomingMovies(RetrofitMoviesListsApi())
+                ) as T
+            }
+            else -> {
+                throw IllegalArgumentException("ViewModel Not Found")
+            }
         }
     }
 

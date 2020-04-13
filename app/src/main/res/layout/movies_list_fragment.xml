@@ -7,7 +7,7 @@
     tools:context=".view.fragments.MoviesListFragment">
 
     <TextView
-        android:id="@+id/top_rated_film_fragment_title"
+        android:id="@+id/movies_list_fragment_title"
         android:layout_width="wrap_content"
         android:textColor="@color/white_text_color"
         android:textStyle="bold"
@@ -31,7 +31,7 @@
         android:orientation="horizontal"
         tools:listitem="@layout/top_rated_movie_row"
         android:scrollbarStyle="outsideOverlay"
-        android:id="@+id/top_rated_films_recycler_view" />
+        android:id="@+id/movies_list_recycler_view" />
 
     </com.facebook.shimmer.ShimmerFrameLayout>
 

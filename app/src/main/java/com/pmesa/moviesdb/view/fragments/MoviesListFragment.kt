@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,84 +12,70 @@ import com.pmesa.moviesdb.R
 import com.pmesa.moviesdb.model.model.Movie
 import com.pmesa.moviesdb.view.adapters.MovieAdapter
 import com.pmesa.moviesdb.view.common.*
+import com.pmesa.moviesdb.viewmodel.MoviesListViewModel
+import com.pmesa.moviesdb.viewmodel.MoviesListViewModel.*
 import com.pmesa.moviesdb.viewmodel.ViewModelFactory
-import com.pmesa.moviesdb.viewmodel.MoviesListsViewModel
-import kotlinx.android.synthetic.main.top_rated_movies_fragment.*
+import kotlinx.android.synthetic.main.movies_list_fragment.*
 
 
-class MoviesListFragment : Fragment() {
+abstract class MoviesListFragment: Fragment() {
 
     private lateinit var layoutManager: RecyclerView.LayoutManager
 
     private lateinit var adapter: MovieAdapter
 
-    private lateinit var viewModel: MoviesListsViewModel
+    private lateinit var viewModelPlugin: MoviesListViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = container?.inflate(R.layout.top_rated_movies_fragment)
+    ) = container?.inflate(R.layout.movies_list_fragment)
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this,
+        viewModelPlugin = ViewModelProviders.of(this,
                 ViewModelFactory.getInstance(activity!!.application))
-            .get(MoviesListsViewModel::class.java)
+            .get(getViewModelClass())
         adapter = MovieAdapter { startFilmDetailActivity(it) }
         layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-        top_rated_films_recycler_view.layoutManager = layoutManager
-        top_rated_films_recycler_view.adapter = adapter
-        top_rated_film_fragment_title.text = arguments?.getString(TITLE)
+        movies_list_recycler_view.layoutManager = layoutManager
+        movies_list_recycler_view.adapter = adapter
+        movies_list_fragment_title.text = arguments?.getString(title())
         movies_list_shimmer_layout.startShimmer()
-        viewModel.getListContent(type(arguments))
-            .observe(viewLifecycleOwner, Observer { refresh(it) })
-
+        viewModelPlugin.data().observe(viewLifecycleOwner, Observer { refresh(it) })
     }
 
-    private fun type(arguments: Bundle?) = arguments?.let { arguments.getInt(TYPE) } ?: -1
+    abstract fun getViewModelClass(): Class<MoviesListViewModel>
+
+    abstract fun title(): String
 
     private fun startFilmDetailActivity(movie: Movie) {
+
     }
 
 
-    private fun refresh(it: MoviesListsViewModel.ViewModelResponse) {
+    private fun refresh(it: Response) {
         when(it){
-            is MoviesListsViewModel.ViewModelResponse.InProgress -> showProgress()
-            is MoviesListsViewModel.ViewModelResponse.Success -> updateContent(it)
-            is MoviesListsViewModel.ViewModelResponse.Failure -> hideContent()
+            is Response.InProgress -> showProgress()
+            is Response.Success -> updateContent(it)
+            is Response.Failure -> hideContent()
         }
     }
 
-    private fun updateContent(it: MoviesListsViewModel.ViewModelResponse.Success) {
+    private fun updateContent(it: Response.Success) {
         movies_list_shimmer_layout.hideShimmer()
-        top_rated_films_recycler_view.makeVisible()
+        movies_list_recycler_view.makeVisible()
         adapter.update(it.results)
     }
 
     private fun hideContent() {
         movies_list_shimmer_layout.hideShimmer()
-        top_rated_films_recycler_view.makeGone()
+        movies_list_recycler_view.makeGone()
     }
 
     private fun showProgress() {
-
+        movies_list_shimmer_layout.startShimmer()
+        movies_list_recycler_view.makeInvisible()
     }
-
-    companion object {
-
-        private const val TITLE = "title"
-
-        private const val TYPE = "type"
-
-        fun newInstance(title: String, type: Int): MoviesListFragment {
-            val args = Bundle()
-            args.putString(TITLE, title)
-            args.putInt(TYPE, type)
-            val topRatedMoviesFragment = MoviesListFragment()
-            topRatedMoviesFragment.arguments = args
-            return topRatedMoviesFragment
-        }
-    }
-
 }

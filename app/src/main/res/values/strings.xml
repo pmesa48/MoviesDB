@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">MoviesDB</string>
+    <string name="movies_list_popular_movies_title">Popular</string>
+    <string name="movies_list_top_rated_title">Top Rated</string>
+    <string name="movies_lits_title_upcoming">Upcoming</string>
 </resources>
